@@ -1,0 +1,349 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #444;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    display: grid;
+    grid-template-columns: minmax(150px, 1fr) minmax(600px, 1fr) minmax(150px, 1fr);
+    background: #D6D6D6;
+    transition: background 250ms ease;
+}
+
+/*Icon, that delets all notes*/
+
+#clear {
+    position: absolute;
+    grid-column: 1 / 2;
+    top: 25px; 
+    left: 25px;
+    width: 75px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.clear_icon {
+    stroke: #636363;
+    transition: stroke 200ms ease;
+}
+
+#clear:hover .clear_icon {
+    opacity: .6;
+    stroke: #FF7821;
+}
+
+/*change dark/light mode*/
+
+.mode {
+    position: absolute;
+    grid-column: 3 / 4;
+    width: 110px;
+    height: 50px;
+    right: 25px;
+    top: 25px;
+    border-radius: 50px;
+    background: #F5F5F5;
+    cursor: pointer;
+}
+
+.toggle {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #949494;
+    transition: left 300ms ease;
+}
+
+/*main container for all notes*/
+
+#box {
+    grid-column: 2 / 3;
+    margin: 75px 0 0 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+/*all input form*/
+
+.enter {
+    width: 600px;
+    margin: 0 0 50px 0;
+    position: relative;
+}
+
+/*place for entering your task*/
+
+.inputNote {
+    width: 600px;
+    height: 120px;
+    border-radius: 20px;
+    background: #F5F5F5;
+    box-shadow: 0 40px 70px -50px #000;
+    border: none;
+    padding: 0 120px 0 0;
+    
+    font-size: 24px;
+    text-indent: 36px;
+    
+    transition: background 200ms ease, color 200ms ease;
+}
+
+/*adding button*/
+
+.add {
+    position: absolute;
+    height: 90px;
+    width: 90px;
+    border-radius: 20px;
+    background: #ddd;
+    right: 15px;
+    top: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 200ms ease;
+}
+
+/*PLUS on add botton*/
+
+.add::before,
+.add::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 50%;
+    height: 4px;
+    background: #949494;
+    transition: background 200ms ease;
+
+}
+
+.add::after {
+    transform: rotate(90deg);
+}
+
+/*lists of notes*/
+
+.noteList,
+.completedNoteList {
+    list-style: none;
+    width: 600px;
+    text-align: center;
+    position: relative;
+}
+
+/*line between Completed and Not lists*/
+
+.noteList::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    bottom: -25px;
+    border-radius: 6px;
+    background: #636363;
+    opacity: .5;
+}
+
+.completedNoteList {
+    margin: 50px 0 0 0;
+}
+
+/*some text and style for empty lists*/
+
+.noteList:empty::before,
+.completedNoteList:empty::before {
+    opacity: .5;
+    font-size: 30px;
+}
+
+.noteList:empty::before { content: 'You have nothing to do'; }
+
+.completedNoteList:empty::before { content: 'You don`t have completed task`s'; }
+
+/*style of note*/
+
+.note {
+    float: left;
+    width: 600px;
+    height: 120px;
+    border-radius: 100px;
+    background: #F5F5F5;
+    box-shadow: 0 40px 70px -50px #000;
+
+    margin-bottom: 30px;
+
+    display: flex;
+    align-items: center;
+    position: relative;
+    
+    transition: all 200ms ease;
+}
+
+.note:last-of-type { margin: 0; }
+
+/*style of note text*/
+
+.noteText {
+    position: absolute;
+    width: 350px;
+    height: 90px;
+    padding: 10px;
+    border-bottom: 3px solid #ddd;
+    left: 50%;
+    transform: translateX(-50%);
+    
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    transition: border 200ms ease, color 200ms ease;
+}
+
+/*style of Complete and Close buttons*/
+
+.complete,
+.close {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #ddd;
+    
+    cursor: pointer;
+    
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    transition: background 200ms ease;
+}
+
+.complete { left: 10px; }
+
+/*style for complete and delete icons*/
+
+.completeBox {
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    border-radius: 6px;
+    border: 4px solid #949494;
+    transition: border 200ms ease;
+}
+
+.completeBox::before,
+.completeBox::after {
+    content: '';
+    position: absolute;
+    display: block;
+    top: 4px;
+    
+    height: 4px;
+    background: #949494;
+    border-radius: 3px;
+    
+    transition: background 150ms ease;
+}
+
+.completeBox::before {
+    width: 20px;
+    transform-origin: left;
+    transform: rotate(45deg) translate(8px);
+}
+
+.completeBox::after {
+    width: 40px;
+    right: 0;
+    transform-origin: right;
+    transform: rotate(-45deg) translate(13px);
+}
+
+.complete:hover .completeBox::before,
+.complete:hover .completeBox::after {
+    background: #636363;
+}
+
+.complete:active .completeBox::before,
+.complete:active .completeBox::after {
+    background: #00A111;
+}
+
+.close { right: 10px; }
+
+.close::before,
+.close::after {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 50px;
+    height: 4px;
+    background: #949494;
+    transition: background 150ms ease;
+}
+
+.close::before { transform: rotate(45deg); }
+.close::after { transform: rotate(-45deg); }
+
+.close:hover::before,
+.close:hover::after {
+    background: #636363;
+}
+
+.close:active::before,
+.close:active::after {
+    background: #990900;
+}
+
+/*Style for completed note*/
+
+.completed {
+    box-shadow: none;
+    transform: scale(0.9);
+}
+.completed>div>div::before, 
+.completed>div>div::after { background: #00A111; }
+
+/*dark mode*/
+
+.dark_body { background: #4C4C4C; }
+
+.dark_mode { background: #FF7821; opacity: .75; }
+.dark_toggle { background: #3A3A3A; }
+
+.dark_input { background: #3A3A3A; color: #D6D6D6; }
+.dark_add { background: #4C4C4C; }
+.dark_add::before,
+.dark_add::after { background: #3A3A3A; }
+
+.dark_noteList::after { background: #FF7821;}
+
+.dark_noteList::before, 
+.dark_completedNoteList::before { color: #FF7821; }
+
+
+.dark_note { background: #3A3A3A; }
+.dark_note::after { background: red; }
+
+.dark_noteText { border-bottom: 3px solid #4C4C4C; color: #D6D6D6; }
+
+.dark_complete,
+.dark_close { background: #4C4C4C; }
+
+.dark_completeBox { border: 4px solid #3A3A3A; }
+
+.dark_completeBox::before,
+.dark_completeBox::after { background: #3A3A3A; }
+
+.dark_close::before,
+.dark_close::after { background: #3A3A3A; }
