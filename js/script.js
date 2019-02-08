@@ -54,11 +54,11 @@ function changeMode(statement) {
           mode        = document.querySelector('#mode'),
           noteList    = document.querySelector('#noteList'),
           completedNoteList = document.querySelector('#completedNoteList'),
-          note        = document.getElementsByClassName('note'),
-          complete    = document.getElementsByClassName('complete'),
-          completeBox = document.getElementsByClassName('completeBox'),
-          noteText    = document.getElementsByClassName('noteText'),
-          close       = document.getElementsByClassName('close');
+          note        = document.querySelectorAll('.note'),
+          complete    = document.querySelectorAll('.complete'),
+          completeBox = document.querySelectorAll('.completeBox'),
+          noteText    = document.querySelectorAll('.noteText'),
+          close       = document.querySelectorAll('.close');
 
     if (statement == true) {
 
@@ -70,7 +70,7 @@ function changeMode(statement) {
         noteList.classList.add('dark_noteList');
         completedNoteList.classList.add('dark_completedNoteList');
 
-        if (data.todo.length) {
+        if (data.todo.length || data.completed.length) {
             for (let i = 0; i < note.length; i++) {
                 note[i].classList.add('dark_note');
                 complete[i].classList.add('dark_complete');
@@ -107,23 +107,23 @@ function saveList() {
 function renderList() {
     if (!data.todo.length && !data.completed.length) return;
 
-    for (let m = 0; m < data.todo.length; m++) {
-        addNote(data.todo[m]);
+    for (let i = 0; i < data.todo.length; i++) {
+        addNote(data.todo[i]);
     }
 
-    for (let n = 0; n < data.completed.length; n++) {
-        addNote(data.completed[n], true);
+    for (let i = 0; i < data.completed.length; i++) {
+        addNote(data.completed[i], true);
     }
 }
 
 function addNote(text, completed) {
-    const noteList  = document.querySelector('#noteList'),
-        completedNoteList = document.querySelector('#completedNoteList'),
-        note        = document.createElement('li'),
-        complete    = document.createElement('div'),
-        completeBox = document.createElement('div'),
-        noteText    = document.createElement('p'),
-        close       = document.createElement('div');
+    const noteList    = document.querySelector('#noteList'),
+          completedNoteList = document.querySelector('#completedNoteList'),
+          note        = document.createElement('li'),
+          complete    = document.createElement('div'),
+          completeBox = document.createElement('div'),
+          noteText    = document.createElement('p'),
+          close       = document.createElement('div');
 
     note.classList.add('note');
     complete.classList.add('complete');
@@ -158,13 +158,12 @@ function addNote(text, completed) {
     close.addEventListener('click', removeNote);
 }
 
-
 function finishTask() {
-    const item = this.parentNode,
-        text = this.parentNode.innerText,
-        completed = item.classList.contains('completed'),
-        noteList = document.querySelector('#noteList'),
-        completedNoteList = document.querySelector('#completedNoteList');
+    const item      = this.parentNode,
+          text      = this.parentNode.innerText,
+          completed = item.classList.contains('completed'),
+          noteList  = document.querySelector('#noteList'),
+          completedNoteList = document.querySelector('#completedNoteList');
 
     if (item.classList.contains('completed')) {
         completedNoteList.removeChild(item);
@@ -188,15 +187,12 @@ function finishTask() {
 }
 
 function removeNote() {
-    const item = this.parentNode,
-        text = this.parentNode.innerText,
-        completed = item.classList.contains('completed');
+    const item      = this.parentNode,
+          text      = this.parentNode.innerText,
+          completed = item.classList.contains('completed');
 
-    if (completed) {
-        data.completed.splice(data.completed.indexOf(text), 1);
-    } else {
-        data.todo.splice(data.todo.indexOf(text), 1);
-    }
+    completed ? data.completed.splice(data.completed.indexOf(text), 1) : data.todo.splice(data.todo.indexOf(text), 1);
+
     item.parentNode.removeChild(item);
     saveList();
 }
