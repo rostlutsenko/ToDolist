@@ -9,6 +9,8 @@ const toggle = document.querySelector('#toggle');
 
 renderList();
 
+let kek = 1;
+
 document.querySelector('#mode').addEventListener('click', function () {
     if (toggle.style.left == '65px') {
         toggle.style.left = '5px';
